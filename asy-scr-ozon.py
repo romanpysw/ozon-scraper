@@ -9,8 +9,6 @@ import json
 from time import sleep
 import time
 
-scr_urls = ['https://www.ozon.ru/product/hd-televizor-hartens-htv-24hdr06b-24-357682561/',
-         'https://www.ozon.ru/product/besprovodnye-naushniki-jbl-reflect-flow-pro-belyy-357032648/?ectx=0&sh=FKs0RzHw']
 enum_url = 'https://www.ozon.ru/category/telefony-i-smart-chasy-15501/?page='
 
 wFile = open("ozon_res.csv", mode = "w", encoding = 'utf-8')
@@ -22,6 +20,10 @@ async def scrap_ozon(good_url):
     header = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.85 YaBrowser/21.11.2.773 Yowser/2.5 Safari/537.36'
     }
+    try:   
+        os.mkdir('img/')
+    except:
+        pass
 
     loop = asyncio.get_event_loop()
     future = loop.run_in_executor(None, requests.get, good_url, header)
@@ -124,5 +126,5 @@ def get_urls(base_url, i_pages):
 if __name__ == "__main__":
     start_time = time.time()
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(main(get_urls(enum_url, 31)))
+    loop.run_until_complete(main(get_urls(enum_url, 2)))
     print("By " + str(time.time() - start_time) + " seconds")

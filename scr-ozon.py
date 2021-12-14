@@ -21,6 +21,11 @@ def scrap_ozon(good_url):
     response = session.get(good_url, headers=header)
 
     bsobj = bs(response.content, 'html.parser')
+    
+    try:   
+        os.mkdir('img/')
+    except:
+        pass
 
     try:
         name = bsobj.find('h1', {'class': 'e8j2'}).text
